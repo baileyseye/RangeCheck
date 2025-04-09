@@ -1,6 +1,6 @@
 ## Interface: 100007
 ## Title: RangeCheck
-## Author: Ваше имя
+## Author: Стравинский
 ## Version: 1.0
 ## Notes: Проверка расстояния между игроками
 
