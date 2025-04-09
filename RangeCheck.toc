@@ -1,0 +1,8 @@
+## Interface: 100007
+## Title: RangeCheck
+## Author: Ваше имя
+## Version: 1.0
+## Notes: Проверка расстояния между игроками
+
+RangeCheckCore.lua
+RangeCheck.lua
