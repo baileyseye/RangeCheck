@@ -1,8 +1,10 @@
 ## Interface: 100007
 ## Title: RangeCheck
 ## Author: Стравинский
-## Version: 1.0
+## Version: 1.1
 ## Notes: Проверка расстояния между игроками
+## SavedVariables: RangeCheckDB
+
 
 RangeCheckCore.lua
 RangeCheck.lua
