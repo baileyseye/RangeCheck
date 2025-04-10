@@ -10,6 +10,13 @@ local RangeCheckCore = {
     Version = "1.0",
 }
 
+RangeCheckDB = RangeCheckDB or {
+    posX = 50,
+    posY = -50,
+    point = "CENTER"
+}
+
+
 local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 
 function RangeCheckCore:RegisterEvents() end
