@@ -51,8 +51,15 @@ function createFrame()
     frame = CreateFrame("GameTooltip", "RangeCheckFrame", UIParent, "GameTooltipTemplate")
     dropdownFrame = CreateFrame("Frame", "RangeCheckDropdown", frame, "UIDropDownMenuTemplate")
 
-    frame:SetFrameStrata("DIALOG")
-    frame:SetPoint(RangeCheckCore.Options.RangeFramePoint, UIParent, RangeCheckCore.Options.RangeFramePoint, RangeCheckCore.Options.RangeFrameX, RangeCheckCore.Options.RangeFrameY)
+    frame:SetFrameStrata("MEDIUM")  
+    frame:SetFrameLevel(5)          
+    
+    frame:SetPoint(RangeCheckDB.point or "CENTER", 
+                  UIParent, 
+                  RangeCheckDB.point or "CENTER", 
+                  RangeCheckDB.posX or 50, 
+                  RangeCheckDB.posY or -50)
+                  
     frame:SetHeight(64)
     frame:SetWidth(64)
     frame:EnableMouse(true)
@@ -60,6 +67,15 @@ function createFrame()
     frame:SetMovable()
     GameTooltip_OnLoad(frame)
     frame:SetPadding(16)
+
+ local font, size, flags = frame.TextLeft2:GetFont()  
+
+ for i = 2, 8 do
+     if frame["TextLeft"..i] then
+         frame["TextLeft"..i]:SetFont(font, size + 2, flags) 
+     end
+ end
+
     frame:RegisterForDrag("LeftButton")
     frame:SetScript("OnDragStart", function(self)
         if not RangeCheckCore.Options.RangeFrameLocked then
@@ -71,9 +87,9 @@ function createFrame()
         self:StopMovingOrSizing()
         ValidateFramePosition(self)
         local point, _, _, x, y = self:GetPoint(1)
-        RangeCheckCore.Options.RangeFrameX = x
-        RangeCheckCore.Options.RangeFrameY = y
-        RangeCheckCore.Options.RangeFramePoint = point
+        RangeCheckDB.posX = x
+        RangeCheckDB.posY = y
+        RangeCheckDB.point = point
     end)
 
     frame:SetScript("OnUpdate", function(self, e)
@@ -92,6 +108,13 @@ function createFrame()
         end
     end)
 
+        frame:SetScript("OnHide", function(self)
+        if isActive then
+            self:Show() 
+        end
+    end)
+
+
     return frame
 end
 
@@ -102,7 +125,7 @@ function onUpdate(self, elapsed)
     local j = 0
 
     self:ClearLines()
-    self:AddLine("Кто в пакете ", 1, 1, 1)  
+    self:AddLine("Кто в пакете", 1, 1, 1)  
 
     for i = 1, GetNumRaidMembers() do
         local uId = "raid"..i
@@ -112,7 +135,7 @@ function onUpdate(self, elapsed)
             local icon = GetRaidTargetIndex(uId)
             local text = icon and ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t %s"):format(icon, UnitName(uId)) or UnitName(uId)
             self:AddLine(text, color.r, color.g, color.b)
-            if j >= 5 then break end
+            if j >= 7 then break end
         end
     end
 
